@@ -1,9 +1,11 @@
-package org.lpro.player.entity;
+package org.lpro.backoffice.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Set;
+
 @Entity
 public class Photo {
 
@@ -22,6 +24,8 @@ public class Photo {
     @JoinColumn(name = "partie_id", nullable = true)
     @JsonIgnore
     private Partie partie;
+
+
     Photo() {
         // necessaire pour JPA !
     }
@@ -34,7 +38,7 @@ public class Photo {
         this.id = id;
     }
 
-    public String getDesc() {
+    public String getDescr() {
         return this.descr;
     }
 

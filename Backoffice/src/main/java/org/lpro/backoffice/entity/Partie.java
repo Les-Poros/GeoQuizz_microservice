@@ -1,9 +1,11 @@
-package org.lpro.player.entity;
+package org.lpro.backoffice.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Set;
+
 @Entity
 public class Partie {
 
@@ -12,11 +14,12 @@ public class Partie {
     private String token;
     private Integer nbphotos;
     private String status;
-    private Integer score;
+    private String score;
     private String joueur;
 
     @ManyToOne
     @JoinColumn(name = "serie_id", nullable = false)
+    @JsonIgnore
     private Serie serie;
 
     @OneToMany(mappedBy = "partie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

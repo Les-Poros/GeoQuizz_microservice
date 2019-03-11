@@ -1,9 +1,8 @@
-package org.lpro.player.entity;
+package org.lpro.backoffice.entity;
 
 import javax.persistence.*;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Serie {
 
@@ -14,11 +13,9 @@ public class Serie {
     private String dist;
     
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<Photo> photo;
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<Partie> partie;
 
     Serie() {
