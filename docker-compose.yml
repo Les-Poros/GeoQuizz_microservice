@@ -1,0 +1,59 @@
+version: '3.3'
+services:
+    restservicemobile:
+        build:
+            context: .
+            dockerfile: ./restserviceMobile.dockerfile
+        ports:
+          - "8084:8082"
+        networks:
+          - isolated_nw2
+        volumes:
+          - /tmp
+        container_name: restserviceMobile
+        depends_on:
+          - pgdb
+
+    restservicebackoffice:
+        build:
+            context: .
+            dockerfile: ./restserviceBackoffice.dockerfile
+        ports:
+          - "8083:8082"
+        networks:
+          - isolated_nw2
+        volumes:
+          - /tmp
+        container_name: restserviceBackoffice
+        depends_on:
+          - pgdb
+
+    restserviceplayer:
+        build:
+            context: .
+            dockerfile: ./restservicePlayer.dockerfile
+        ports:
+          - "8082:8082"
+        networks:
+          - isolated_nw2
+        volumes:
+          - /tmp
+        container_name: restservicePlayer
+        depends_on:
+          - pgdb
+
+    pgdb:
+        image: postgres
+        ports:
+          - "5432:5432"
+        networks:
+          - isolated_nw2
+        environment:
+            POSTGRES_DB: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: riovas
+        container_name: postgres
+
+networks:
+    isolated_nw2:
+        driver: bridge
