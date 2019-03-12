@@ -14,7 +14,7 @@ public class Partie {
     private String token;
     private Integer nbphotos;
     private String status;
-    private String score;
+    private Integer score;
     private String joueur;
 
     @ManyToOne

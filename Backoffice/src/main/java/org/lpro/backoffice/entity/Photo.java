@@ -26,7 +26,7 @@ public class Photo {
     private Partie partie;
 
 
-    Photo() {
+    public Photo() {
         // necessaire pour JPA !
     }
 
@@ -38,6 +38,20 @@ public class Photo {
         this.id = id;
     }
 
+    public Serie getSerie() {
+        return this.serie;
+    }
+
+    public void setSerie(Serie serie) {
+        this.serie = serie;
+    }
+    public Partie getPartie() {
+        return this.partie;
+    }
+
+    public void setPartie(Partie partie ) {
+        this.partie = partie;
+    }
     public String getDescr() {
         return this.descr;
     }

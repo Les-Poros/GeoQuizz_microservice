@@ -50,7 +50,7 @@ public class PartieRepresentation {
     @PostMapping("/series/{idSerie}")
     public ResponseEntity<?> postCommande(@PathVariable("idSerie") String idSerie, @RequestBody Partie partie){
         if (!sr.existsById(idSerie)) {
-            throw new NotFound("Partie inexistante !");
+            throw new NotFound("Serie inexistante !");
         }
             partie.setId(UUID.randomUUID().toString());
             String token = Jwts.builder().setSubject(partie.getId()).signWith(SignatureAlgorithm.HS256, "secret")

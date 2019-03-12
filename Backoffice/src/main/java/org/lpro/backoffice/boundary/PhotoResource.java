@@ -14,4 +14,7 @@ public interface PhotoResource extends CrudRepository<Photo, String> {
 
     Optional<Photo> findById(String id);
 
+    Optional<Photo> findBySerieId(String id);
+
+    Page<Photo> findBySerieId(String id,Pageable pegeable);
 }
