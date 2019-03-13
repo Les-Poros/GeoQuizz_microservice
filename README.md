@@ -23,7 +23,7 @@ Membres du projet :
 Dans chaque dossier faire : 
 * mvn clean install -DskipTests 
 
-Puis revenir dans le dossier source et faire
+Puis revenir dans le dossier source et faire :
 * docker-compose up --build -d
 
 Vous aurez alors accés aux differents micro-services via les ports suivants :
