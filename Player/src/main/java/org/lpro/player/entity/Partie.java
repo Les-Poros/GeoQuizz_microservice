@@ -1,7 +1,7 @@
 package org.lpro.player.entity;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
@@ -19,8 +19,14 @@ public class Partie {
     @JoinColumn(name = "serie_id", nullable = false)
     private Serie serie;
 
-    @OneToMany(mappedBy = "partie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Photo> photo;
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "partie_photo",
+        joinColumns = @JoinColumn(name = "partie_id"),
+        inverseJoinColumns = @JoinColumn(name = "photo_id"))
+    private Set<Photo> photo = new HashSet<>();;
 
     Partie() {
         // necessaire pour JPA !
@@ -32,6 +38,11 @@ public class Partie {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void addPhoto(Photo photo) {
+        this.photo.add(photo);
+        photo.getPartie().add(this);
     }
 
     public Serie getSerie() {
@@ -88,5 +99,17 @@ public class Partie {
 
     public Integer getNbphotos() {
         return this.nbphotos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Partie)) return false;
+        return id != null && id.equals(((Partie) o).id);
+    }
+ 
+    @Override
+    public int hashCode() {
+        return 31;
     }
 }

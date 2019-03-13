@@ -1,18 +1,17 @@
 package org.lpro.backoffice.entity;
 
 import javax.persistence.*;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.Set;
-
 @Entity
 public class Photo {
 
     @Id
     private String id;
     private String descr;
-    private String position;
+    private String latitude;
+    private String longitude;
     private String url;
 
     @ManyToOne
@@ -20,13 +19,10 @@ public class Photo {
     @JsonIgnore
     private Serie serie;
 
-    @ManyToOne
-    @JoinColumn(name = "partie_id", nullable = true)
+    @ManyToMany(mappedBy = "photo")
     @JsonIgnore
-    private Partie partie;
-
-
-    public Photo() {
+    private Set<Partie> partie = new HashSet<>();
+    Photo() {
         // necessaire pour JPA !
     }
 
@@ -37,7 +33,6 @@ public class Photo {
     public void setId(String id) {
         this.id = id;
     }
-
     public Serie getSerie() {
         return this.serie;
     }
@@ -45,14 +40,14 @@ public class Photo {
     public void setSerie(Serie serie) {
         this.serie = serie;
     }
-    public Partie getPartie() {
+    public Set<Partie> getPartie() {
         return this.partie;
     }
 
-    public void setPartie(Partie partie ) {
+    public void setPartie(Set<Partie> partie ) {
         this.partie = partie;
     }
-    public String getDescr() {
+    public String getDesc() {
         return this.descr;
     }
 
@@ -60,12 +55,20 @@ public class Photo {
         this.descr = descr;
     }
 
-    public String getPosition() {
-        return this.position;
+    public String getLatitude() {
+        return this.latitude;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return this.longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getUrl() {
@@ -77,7 +80,18 @@ public class Photo {
     }
 
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Photo tag = (Photo) o;
+        return Objects.equals(id, tag.id);
+    }
+ 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
 
 }

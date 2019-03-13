@@ -72,7 +72,8 @@ public class SerieRepresentation {
         }
         return sr.findById(idserie).map(serie -> {
             serie.setVille(serieUpdated.getVille());
-            serie.setMaprefs(serieUpdated.getMaprefs());
+            serie.setMap_lon(serieUpdated.getMap_lon());
+            serie.setMap_lat(serieUpdated.getMap_lat());
             serie.setDist(serieUpdated.getDist());
             serie.setPhoto(serieUpdated.getPhoto());
             serie.setPartie(serieUpdated.getPartie());

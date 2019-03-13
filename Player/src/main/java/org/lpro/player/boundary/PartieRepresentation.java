@@ -58,7 +58,13 @@ public class PartieRepresentation {
             partie.setToken(token);
             partie.setScore(0);
             partie.setStatus("start");
-            partie.setSerie(sr.findById(idSerie).get());
+            Serie serie=sr.findById(idSerie).get();
+            partie.setSerie(serie);
+            List<Photo> shufflePhoto = new ArrayList<>(serie.getPhoto());
+            Collections.shuffle(shufflePhoto);
+            shufflePhoto.subList(0, partie.getNbphotos()).forEach(photo ->{
+                partie.addPhoto(photo);
+            } );
             Partie saved = pr.save(partie);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setLocation(linkTo(PartieRepresentation.class).slash(saved.getId()).toUri());
