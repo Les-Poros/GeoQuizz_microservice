@@ -1,4 +1,4 @@
-# GeoQuizz_mobile
+# GeoQuizz_microservice
 
 Membres du projet :
 - Maeva Butaye    ( Lilychaan )
@@ -21,19 +21,19 @@ Membres du projet :
 ## Lancer les micro-services
 
 Dans chaque dossier faire : 
-* mvn build install -DskipTests 
+* mvn clean install -DskipTests 
 
 Puis revenir dans le dossier source et faire
 * docker-compose up --build -d
 
-Vous aurez alors accés au differents micro-services via les ports suivants :
+Vous aurez alors accés aux differents micro-services via les ports suivants :
 
 * Api Player : {VotreAdresseDocker}:8082
 * Api BackOffice : {VotreAdresseDocker}:8083
 * Api Mobile : {VotreAdresseDocker}:8084
 
-## Ajouter la bdd predeterminé
+## Ajouter la bdd prédéterminée
 
-A la fin de l'installation complete des dockers contenant les micro-services, faire: 
+À la fin de l'installation complète des dockers contenant les micro-services, faire: 
 * docker cp ./geoquizz_data.sql postgres:/docker-entrypoint-initdb.d/dump.sql
 * docker exec -u postgres postgres psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql
