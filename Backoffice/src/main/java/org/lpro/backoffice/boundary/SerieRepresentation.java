@@ -1,5 +1,6 @@
 package org.lpro.backoffice.boundary;
 
+import org.springframework.data.domain.*;
 import java.util.*;
 import org.lpro.backoffice.entity.*;
 import org.lpro.backoffice.controller.*;
@@ -44,13 +45,13 @@ public class SerieRepresentation {
     public ResponseEntity<?> getAllSerie(
         @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
         @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
-        return new ResponseEntity<>(sr.findAll(PageRequest.of(page, size)), HttpStatus.OK);
+        return new ResponseEntity<>(serie2Resource(sr.findAll(PageRequest.of(page, size))), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{serieId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSerieAvecId(@PathVariable("serieId") String id) throws NotFound {
         return Optional.ofNullable(sr.findById(id)).filter(Optional::isPresent)
-                .map(serie -> new ResponseEntity<>(serie.get(), HttpStatus.OK))
+                .map(serie -> new ResponseEntity<>(serieToResource(serie.get(),false), HttpStatus.OK))
                 .orElseThrow(() -> new NotFound("Serie inexistante !"));
     }
 
@@ -100,7 +101,8 @@ public class SerieRepresentation {
             if (!sr.existsById(id)) {
                 throw new NotFound("Serie inexistante !");
             }
-            return new ResponseEntity<>(phr.findBySerieId(id,PageRequest.of(page, size)), HttpStatus.OK);
+            return new ResponseEntity<>(photo2Resource(phr.findBySerieId(id, PageRequest.of(page, size)), id),
+                HttpStatus.OK);
         }
 
         @PostMapping("/{serieId}/photos")
@@ -118,6 +120,79 @@ public class SerieRepresentation {
             return new ResponseEntity<>(saved, responseHeaders, HttpStatus.CREATED);
     
         }    
+        private Resources<Resource<Serie>> serie2Resource(Page<Serie> series) {
+            int pageact=series.getPageable().getPageNumber();
+            int size=series.getPageable().getPageSize();
+            int firstpage=0;
+            int lastpage;
+            if((int)series.getTotalElements()%size==0)
+            lastpage=((int)series.getTotalElements()/size)-1;
+            else
+            lastpage=(int)series.getTotalElements()/size;
+            Link prevLink;Link nextLink ;
+            
+            Link selfLink = new Link(linkTo(SerieRepresentation.class)+"?page="+pageact+"&size="+size).withRel("self - page:"+pageact);
+            Link firstLink = new Link(linkTo(SerieRepresentation.class) +"?page="+firstpage+"&size="+size).withRel("first - page:"+firstpage);
+            Link lastLink = new Link(linkTo(SerieRepresentation.class)+"?page="+lastpage+"&size="+size).withRel("last - page:"+lastpage);
+            if(pageact>=lastpage)
+                nextLink = new Link(linkTo(SerieRepresentation.class) +"?page="+lastpage+"&size="+size).withRel("next - page:"+lastpage);
+            else
+                nextLink = new Link(linkTo(SerieRepresentation.class) +"?page="+(pageact+1)+"&size="+size).withRel("next - page:"+(pageact+1));
+            
+            if(pageact<=firstpage)
+                 prevLink = new Link(linkTo(SerieRepresentation.class) +"?page="+firstpage+"&size="+size).withRel("prev - page:"+firstpage);
+            else
+                 prevLink = new Link(linkTo(SerieRepresentation.class)+"?page="+(pageact-1)+"&size="+size).withRel("prev - page:"+(pageact-1));
+
+            List<Resource<Serie>> serieResources = new ArrayList();
+            series.forEach(serie -> serieResources.add(serieToResource(serie, false)));
+            return new Resources<>(serieResources, selfLink,firstLink,prevLink,nextLink,lastLink);
+        }
     
+        private Resource<Serie> serieToResource(Serie serie, Boolean collection) {
+            Link selfLink = linkTo(SerieRepresentation.class).slash(serie.getId()).withSelfRel();
+            Link photoLink = linkTo(SerieRepresentation.class).slash(serie.getId())
+                    .slash("photos").withRel("photos");
+            if (collection) {
+                Link collectionLink = linkTo(SerieRepresentation.class).withRel("collection");
+                return new Resource<>(serie, photoLink, selfLink, collectionLink);
+            } else {
+                return new Resource<>(serie, photoLink, selfLink);
+            }
+        }
         
+        private Resources<Resource<Photo>> photo2Resource(Page<Photo> photos,String idSerie) {
+            int pageact=photos.getPageable().getPageNumber();
+            int size=photos.getPageable().getPageSize();
+            int firstpage=0;
+            int lastpage;
+            if((int)photos.getTotalElements()%size==0)
+            lastpage=((int)photos.getTotalElements()/size)-1;
+            else
+            lastpage=(int)photos.getTotalElements()/size;
+            Link prevLink;Link nextLink ;
+            
+            Link selfLink = new Link(linkTo(SerieRepresentation.class).slash(idSerie).slash("photos") +"?page="+pageact+"&size="+size).withRel("self - page:"+pageact);
+            Link firstLink = new Link(linkTo(SerieRepresentation.class).slash(idSerie).slash("photos") +"?page="+firstpage+"&size="+size).withRel("first - page:"+firstpage);
+            Link lastLink = new Link(linkTo(SerieRepresentation.class).slash(idSerie).slash("photos") +"?page="+lastpage+"&size="+size).withRel("last - page:"+lastpage);
+            if(pageact>=lastpage)
+                nextLink = new Link(linkTo(SerieRepresentation.class).slash(idSerie).slash("photos") +"?page="+lastpage+"&size="+size).withRel("next - page:"+lastpage);
+            else
+                nextLink = new Link(linkTo(SerieRepresentation.class).slash(idSerie).slash("photos") +"?page="+(pageact+1)+"&size="+size).withRel("next - page:"+(pageact+1));
+            
+            if(pageact<=firstpage)
+                 prevLink = new Link(linkTo(SerieRepresentation.class).slash(idSerie).slash("photos") +"?page="+firstpage+"&size="+size).withRel("prev - page:"+firstpage);
+            else
+                 prevLink = new Link(linkTo(SerieRepresentation.class).slash(idSerie).slash("photos") +"?page="+(pageact-1)+"&size="+size).withRel("prev - page:"+(pageact-1));
+
+            List<Resource<Photo>> photoResources = new ArrayList();
+            photos.forEach(photo -> photoResources.add(photoToResource(photo)));
+            return new Resources<>(photoResources, selfLink,firstLink,prevLink,nextLink,lastLink);
+        }
+
+        private Resource<Photo> photoToResource(Photo photo) {
+        
+                return new Resource<>(photo);
+
+        }
 }
