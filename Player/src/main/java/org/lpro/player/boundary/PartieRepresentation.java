@@ -41,20 +41,14 @@ public class PartieRepresentation {
     }
 
     @GetMapping(value = "/{partieId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getPartieAvecId(@PathVariable("partieId") String id,@RequestHeader(value = "x-lbs-token", required = false, defaultValue = "") String tokenHeader) throws NotFound {
-        
-        if (!pr.existsById(id)) {
-            throw new NotFound("Partie inexistante !");
-        }
-        Optional<Partie> partie = pr.findById(id);
-        if (partie.get().getToken().equals(tokenHeader))
-            return new ResponseEntity<>(partie, HttpStatus.OK);
-        else
-            return new ResponseEntity<>("{\"erreur\":\"Token invalide\"}", HttpStatus.FORBIDDEN);
+    public ResponseEntity<?> getPartieAvecId(@PathVariable("partieId") String id) throws NotFound {
+        return Optional.ofNullable(pr.findById(id)).filter(Optional::isPresent)
+                .map(partie -> new ResponseEntity<>(partie.get(), HttpStatus.OK))
+                .orElseThrow(() -> new NotFound("Partie inexistante !"));
     }
 
     @PostMapping("/series/{idSerie}")
-    public ResponseEntity<?> postPartie(@PathVariable("idSerie") String idSerie, @RequestBody Partie partie){
+    public ResponseEntity<?> postCommande(@PathVariable("idSerie") String idSerie, @RequestBody Partie partie){
         if (!sr.existsById(idSerie)) {
             throw new NotFound("Serie inexistante !");
         }
@@ -74,7 +68,7 @@ public class PartieRepresentation {
             Partie saved = pr.save(partie);
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setLocation(linkTo(PartieRepresentation.class).slash(saved.getId()).toUri());
-            return new ResponseEntity<>("{\"id\":\""+saved.getId()+"\",\"token\":\""+saved.getToken()+"\"}", responseHeaders, HttpStatus.CREATED);
+            return new ResponseEntity<>(saved, responseHeaders, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{partieId}")
