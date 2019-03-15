@@ -68,6 +68,10 @@ public class PartieRepresentation {
             partie.setSerie(serie);
             List<Photo> shufflePhoto = new ArrayList<>(serie.getPhoto());
             Collections.shuffle(shufflePhoto);
+            if(partie.getNbphotos()==null)
+                partie.setNbphotos(10);
+            if(partie.getNbphotos()>=shufflePhoto.size())
+                partie.setNbphotos(shufflePhoto.size());
             shufflePhoto.subList(0, partie.getNbphotos()).forEach(photo ->{
                 partie.addPhoto(photo);
             } );
