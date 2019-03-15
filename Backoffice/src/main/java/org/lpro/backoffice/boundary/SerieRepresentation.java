@@ -123,12 +123,10 @@ public class SerieRepresentation {
         private Resources<Resource<Serie>> serie2Resource(Page<Serie> series) {
             int pageact=series.getPageable().getPageNumber();
             int size=series.getPageable().getPageSize();
-            int firstpage=0;
-            int lastpage;
-            if((int)series.getTotalElements()%size==0)
-            lastpage=((int)series.getTotalElements()/size)-1;
-            else
-            lastpage=(int)series.getTotalElements()/size;
+            int firstpage=0;  
+            int lastpage=series.getTotalPages()-1;
+            if(pageact>lastpage)pageact=lastpage;
+            else if(pageact<firstpage)pageact=firstpage;
             Link prevLink;Link nextLink ;
             
             Link selfLink = new Link(linkTo(SerieRepresentation.class)+"?page="+pageact+"&size="+size).withRel("self - page:"+pageact);
@@ -165,11 +163,10 @@ public class SerieRepresentation {
             int pageact=photos.getPageable().getPageNumber();
             int size=photos.getPageable().getPageSize();
             int firstpage=0;
-            int lastpage;
-            if((int)photos.getTotalElements()%size==0)
-            lastpage=((int)photos.getTotalElements()/size)-1;
-            else
-            lastpage=(int)photos.getTotalElements()/size;
+            int lastpage=photos.getTotalPages();
+
+            if(pageact>lastpage)pageact=lastpage;
+            else if(pageact<firstpage)pageact=firstpage;
             Link prevLink;Link nextLink ;
             
             Link selfLink = new Link(linkTo(SerieRepresentation.class).slash(idSerie).slash("photos") +"?page="+pageact+"&size="+size).withRel("self - page:"+pageact);

@@ -8,8 +8,6 @@ services:
           - "8084:8082"
         networks:
           - isolated_nw2
-        volumes:
-          - /tmp
         container_name: restserviceMobile
         depends_on:
           - pgdb
@@ -37,8 +35,6 @@ services:
           - "8082:8082"
         networks:
           - isolated_nw2
-        volumes:
-          - /tmp
         container_name: restservicePlayer
         depends_on:
           - pgdb
