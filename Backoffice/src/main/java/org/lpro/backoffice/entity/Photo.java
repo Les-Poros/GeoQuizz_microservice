@@ -47,11 +47,11 @@ public class Photo {
     public void setPartie(Set<Partie> partie ) {
         this.partie = partie;
     }
-    public String getDesc() {
+    public String getDescr() {
         return this.descr;
     }
 
-    public void setDesc(String descr) {
+    public void setDescr(String descr) {
         this.descr = descr;
     }
 

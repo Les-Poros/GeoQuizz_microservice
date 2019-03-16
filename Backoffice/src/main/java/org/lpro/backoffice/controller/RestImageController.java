@@ -38,7 +38,7 @@ public class RestImageController {
         this.sr = sr;
     }
 
-    @PutMapping("series/{serieId}/photos/{photoId}")
+    @PutMapping("series/{serieId}/photos/{photoId}/image")
     public ResponseEntity<?> uploadFile(@RequestParam("image") MultipartFile uploadimage,
             @PathVariable("serieId") String idSerie, @PathVariable("photoId") String idPhoto) {
         if (!sr.existsById(idSerie)) {

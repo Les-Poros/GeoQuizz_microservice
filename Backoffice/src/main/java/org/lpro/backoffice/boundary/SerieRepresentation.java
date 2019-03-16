@@ -106,7 +106,7 @@ public class SerieRepresentation {
         }
 
         @PostMapping("/{serieId}/photos")
-        public ResponseEntity<?> postPhoto(
+        public ResponseEntity<?> postPhotos(
         @RequestBody Photo photo,
         @PathVariable("serieId") String idSerie){
             if (!sr.existsById(idSerie)) {
@@ -120,11 +120,23 @@ public class SerieRepresentation {
             return new ResponseEntity<>(saved, responseHeaders, HttpStatus.CREATED);
     
         }    
+
+        @GetMapping("/{serieId}/photos/{photoId}")
+        public ResponseEntity<?> getSeriePhoto(
+            @PathVariable("serieId") String serieId,@PathVariable("photoId") String photoId) {
+            if (!sr.existsById(serieId)) {
+                throw new NotFound("Serie inexistante !");
+            }
+            return Optional.ofNullable(phr.findById(photoId)).filter(Optional::isPresent)
+            .map(photo -> new ResponseEntity<>(photo.get(), HttpStatus.OK))
+            .orElseThrow(() -> new NotFound("Serie inexistante !"));
+        }
         private Resources<Resource<Serie>> serie2Resource(Page<Serie> series) {
             int pageact=series.getPageable().getPageNumber();
             int size=series.getPageable().getPageSize();
             int firstpage=0;  
             int lastpage=series.getTotalPages()-1;
+            if(lastpage==-1)lastpage=0;
             if(pageact>lastpage)pageact=lastpage;
             else if(pageact<firstpage)pageact=firstpage;
             Link prevLink;Link nextLink ;
@@ -163,8 +175,9 @@ public class SerieRepresentation {
             int pageact=photos.getPageable().getPageNumber();
             int size=photos.getPageable().getPageSize();
             int firstpage=0;
-            int lastpage=photos.getTotalPages();
+            int lastpage=photos.getTotalPages()-1;
 
+            if(lastpage==-1)lastpage=0;
             if(pageact>lastpage)pageact=lastpage;
             else if(pageact<firstpage)pageact=firstpage;
             Link prevLink;Link nextLink ;
