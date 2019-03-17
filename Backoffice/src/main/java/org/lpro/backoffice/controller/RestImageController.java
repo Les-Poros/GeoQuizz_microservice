@@ -38,7 +38,7 @@ public class RestImageController {
         this.sr = sr;
     }
 
-    @PutMapping("series/{serieId}/photos/{photoId}/image")
+    @PutMapping("/series/{serieId}/photos/{photoId}/image")
     public ResponseEntity<?> uploadFile(@RequestParam("image") MultipartFile uploadimage,
             @PathVariable("serieId") String idSerie, @PathVariable("photoId") String idPhoto) {
         if (!sr.existsById(idSerie)) {
@@ -59,18 +59,18 @@ public class RestImageController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return phr.findById(idPhoto).map(photo -> {
-            photo.setUrl(uploadimage.getOriginalFilename());
+            photo.setUrl("img/" + uploadimage.getOriginalFilename());
             phr.save(photo);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }).orElseThrow(() -> new NotFound("serie inexistant !"));
     }
 
-    @GetMapping(value = "img/{lienImage}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "img/{lienImage}")
     public ResponseEntity<?> uploadFile(@PathVariable("lienImage") String lienImage) throws IOException {
        
         Path path = Paths.get(UPLOADED_FOLDER +lienImage);
         byte[] bytes=Files.readAllBytes(path);
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(bytes);
+        return ResponseEntity.ok().contentType(MediaType.MULTIPART_FORM_DATA).body(bytes);
     }
 
     private void saveUploadedFiles(List<MultipartFile> images) throws IOException {
