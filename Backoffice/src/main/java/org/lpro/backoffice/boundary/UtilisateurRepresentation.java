@@ -49,6 +49,9 @@ public class UtilisateurRepresentation {
     @PostMapping
     public ResponseEntity<?> postUser(@RequestBody Utilisateur user) {
 
+        if(ur.findByUsername(user.getUsername())==null){
+            throw new NotFound("User deja existant !");
+        };
         user.setUserId(UUID.randomUUID().toString());
         user.setPassword(new BCryptPasswordEncoder(10).encode(user.getPassword()));
         Utilisateur saved = ur.save(user);

@@ -109,6 +109,7 @@ public class SerieRepresentation {
         if (!sr.existsById(idSerie)) {
             throw new NotFound("Serie inexistante !");
         }
+        photo.setId(UUID.randomUUID().toString());
         photo.setSerie(sr.findById(idSerie).get());
         Photo saved = phr.save(photo);
         HttpHeaders responseHeaders = new HttpHeaders();
