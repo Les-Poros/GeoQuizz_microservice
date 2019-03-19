@@ -12,7 +12,6 @@ public class Serie {
     private String ville;
     private String map_lat;
     private String map_lon;
-    private String dist;
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -74,11 +73,4 @@ public class Serie {
         return this.ville;
     }
   
-    public void setDist(String dist) {
-        this.dist = dist;
-    }
-
-    public String getDist() {
-        return this.dist;
-    }  
 }

@@ -3,7 +3,6 @@ package org.lpro.backoffice.boundary;
 import org.springframework.data.domain.*;
 import java.util.*;
 import org.lpro.backoffice.entity.*;
-import org.lpro.backoffice.controller.*;
 import org.lpro.backoffice.exception.NotFound;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -75,7 +74,6 @@ public class SerieRepresentation {
         serie.setVille(serieUpdated.getVille());
         serie.setMap_lon(serieUpdated.getMap_lon());
         serie.setMap_lat(serieUpdated.getMap_lat());
-        serie.setDist(serieUpdated.getDist());
         serie.setPhoto(serieUpdated.getPhoto());
         serie.setPartie(serieUpdated.getPartie());
         Serie saved = sr.save(serie);

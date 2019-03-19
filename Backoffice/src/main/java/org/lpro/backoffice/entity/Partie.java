@@ -14,22 +14,28 @@ public class Partie {
     private String status;
     private Integer score;
     private String joueur;
+    private String difficulte;
 
     @ManyToOne
     @JoinColumn(name = "serie_id", nullable = false)
     private Serie serie;
 
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-        CascadeType.MERGE
-    })
-    @JoinTable(name = "partie_photo",
-        joinColumns = @JoinColumn(name = "partie_id"),
-        inverseJoinColumns = @JoinColumn(name = "photo_id"))
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "partie_photo", joinColumns = @JoinColumn(name = "partie_id"), inverseJoinColumns = @JoinColumn(name = "photo_id"))
     private Set<Photo> photo = new HashSet<>();;
 
     Partie() {
         // necessaire pour JPA !
+    }
+
+
+    public String getDifficulte() {
+        return difficulte;
+    }
+
+  
+    public void setDifficulte(String difficulte) {
+        this.difficulte = difficulte;
     }
 
     public String getId() {

@@ -1,4 +1,4 @@
-INSERT INTO serie (id, ville, map_lat, map_lon, dist) VALUES ('e084872b-6328-46af-97fc-6cb909bf4f72', 'Nancy', '48.6843900', '6.1849600', '500');
+INSERT INTO serie (id, ville, map_lat, map_lon) VALUES ('e084872b-6328-46af-97fc-6cb909bf4f72', 'Nancy', '48.6843900', '6.1849600');
 
 INSERT INTO photo (id, descr, latitude, longitude, url, serie_id) VALUES
 ('195205ff-6beb-475c-806a-3652c7f17f92', 'Place Stanislas', '48.6938', '6.182900000000018', 'http://res.cloudinary.com/lesporos/image/upload/195205ff-6beb-475c-806a-3652c7f17f92.jpg', 'e084872b-6328-46af-97fc-6cb909bf4f72'),
