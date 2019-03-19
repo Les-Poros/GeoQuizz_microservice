@@ -44,7 +44,9 @@ public class SerieRepresentation {
     public ResponseEntity<?> getAllSerie(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
-        return new ResponseEntity<>(serie2Resource(sr.findAll(PageRequest.of(page, size,new Sort(Sort.Direction.ASC, "ville")))), HttpStatus.OK);
+        return new ResponseEntity<>(
+                serie2Resource(sr.findAll(PageRequest.of(page, size, new Sort(Sort.Direction.ASC, "ville")))),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/{serieId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,7 +55,6 @@ public class SerieRepresentation {
                 .map(serie -> new ResponseEntity<>(serieToResource(serie.get(), false), HttpStatus.OK))
                 .orElseThrow(() -> new NotFound("Serie inexistante !"));
     }
-
 
     private Resources<Resource<Serie>> serie2Resource(Page<Serie> series) {
         int pageact = series.getPageable().getPageNumber();
@@ -90,7 +91,14 @@ public class SerieRepresentation {
                     .withRel("prev - page:" + (pageact - 1));
 
         List<Resource<Serie>> serieResources = new ArrayList();
-        series.forEach(serie -> serieResources.add(serieToResource(serie, false)));
+        series.forEach(serie -> {
+            if (serie.getPhoto().size() >= 5) {
+                List<Photo> shufflePhoto = new ArrayList<>(serie.getPhoto());
+                Collections.shuffle(shufflePhoto);
+                serie.setPhoto(new HashSet<>(Arrays.asList(shufflePhoto.get(0))));
+                serieResources.add(serieToResource(serie, false));
+            }
+        });
         return new Resources<>(serieResources, selfLink, firstLink, prevLink, nextLink, lastLink);
     }
 

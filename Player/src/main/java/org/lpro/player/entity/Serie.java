@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 @Entity
 public class Serie {
 
@@ -14,12 +15,12 @@ public class Serie {
     private String map_lon;
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Photo> photo = new HashSet<>();;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Set<Photo> photo = new HashSet<>();
 
     @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Partie> partie = new HashSet<>();;
+    private Set<Partie> partie = new HashSet<>();
 
     Serie() {
         // necessaire pour JPA !

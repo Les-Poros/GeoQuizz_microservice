@@ -47,8 +47,10 @@ public class PartieRepresentation {
             throw new NotFound("Partie inexistante !");
         }
         Optional<Partie> partie = pr.findById(id);
-        if (partie.get().getToken().equals(tokenHeader))
+        if (partie.get().getToken().equals(tokenHeader)){
+            partie.get().getSerie().setPhoto(new HashSet<>());
             return new ResponseEntity<>(partie, HttpStatus.OK);
+        }
         else
             return new ResponseEntity<>("{\"erreur\":\"Token invalide\"}", HttpStatus.FORBIDDEN);
     }
@@ -73,6 +75,7 @@ public class PartieRepresentation {
             if(partie.getNbphotos()>=shufflePhoto.size())
                 partie.setNbphotos(shufflePhoto.size());
             shufflePhoto.subList(0, partie.getNbphotos()).forEach(photo ->{
+                System.out.println(photo.getDescr());
                 partie.addPhoto(photo);
             } );
             Partie saved = pr.save(partie);
