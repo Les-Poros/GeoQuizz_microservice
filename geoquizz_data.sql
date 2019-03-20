@@ -10,4 +10,8 @@ INSERT INTO photo (id, descr, latitude, longitude, url, serie_id) VALUES
 ('d30a0f31-1475-447c-a96d-8561968208a3', 'Pharmacie du Point Central', '48.690682', '6.182672', 'http://res.cloudinary.com/lesporos/image/upload/d30a0f31-1475-447c-a96d-8561968208a3.jpg', 'e084872b-6328-46af-97fc-6cb909bf4f72'),
 ('8cdf6f9f-df52-4da8-8e47-1160731e2184', 'Stade Marcel-Picot', '48.694851', '6.210201', 'http://res.cloudinary.com/lesporos/image/upload/8cdf6f9f-df52-4da8-8e47-1160731e2184.jpg', 'e084872b-6328-46af-97fc-6cb909bf4f72'),
 ('50e46c8d-8710-4baf-92a7-0d6369a34259', 'Kinepolis', '48.691163', '6.1956', 'http://res.cloudinary.com/lesporos/image/upload/50e46c8d-8710-4baf-92a7-0d6369a34259.jpg', 'e084872b-6328-46af-97fc-6cb909bf4f72'),
-('bd6865cc-e824-4820-82a0-d1c11ef7a2ff', 'CHU de Nancy - Hôpitaux de Brabois', '48.6476089', '6.149747', 'http://res.cloudinary.com/lesporos/image/upload/bd6865cc-e824-4820-82a0-d1c11ef7a2ff.jpg', 'e084872b-6328-46af-97fc-6cb909bf4f72');
+('bd6865cc-e824-4820-82a0-d1c11ef7a2ff', 'CHU de Nancy - Hôpitaux de Brabois', '48.6476089', '6.149747', 'http://res.cloudinary.com/lesporos/image/upload/bd6865cc-e824-4820-82a0-d1c11ef7a2ff.jpg', 'e084872b-6328-46af-97fc-6cb909bf4f72'),
+('26bd7d8c-7f0f-491a-acc4-ef29788aa03c', 'Place Carnot', '48.693417', '6.177431', 'http://res.cloudinary.com/lesporos/image/upload/26bd7d8c-7f0f-491a-acc4-ef29788aa03c.jpg', 'e084872b-6328-46af-97fc-6cb909bf4f72'),
+('0cc0c744-679a-4767-953b-aa72cb8531f0', 'Gare de Nancy', '48.689841', '6.174445', 'http://res.cloudinary.com/lesporos/image/upload/0cc0c744-679a-4767-953b-aa72cb8531f0.jpg', 'e084872b-6328-46af-97fc-6cb909bf4f72');
+
+INSERT INTO serie (id, ville, map_lat, map_lon) VALUES ('418ee498-85f9-4680-b47e-87bf7ecca3a0', 'Londres', '51.489334', '-0.144055');
