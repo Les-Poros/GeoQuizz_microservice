@@ -30,4 +30,4 @@ INSERT INTO photo (id, descr, latitude, longitude, url, serie_id) VALUES
 ('11caf53f-7ca7-4d85-a5f3-b67ddb411aab', 'The Shard', '51.504342', '-0.086446', 'http://res.cloudinary.com/lesporos/image/upload/11caf53f-7ca7-4d85-a5f3-b67ddb411aab.jpg', '418ee498-85f9-4680-b47e-87bf7ecca3a0'),
 ('616b861b-3294-43ea-a759-26151846a8d2', 'Picadilly Circus', '51.5099', '-0.134261', 'http://res.cloudinary.com/lesporos/image/upload/616b861b-3294-43ea-a759-26151846a8d2.jpg', '418ee498-85f9-4680-b47e-87bf7ecca3a0');
 
-INSERT INTO user (username, password) VALUES ('svz', '$2a$10$vuf20wqbdfUEHjSl0ofTcewNhYXs3Er3BccNWuJvSQt60LFqCVZ6m');
+INSERT INTO utilisateur (username, password) VALUES ('svz', '$2a$10$vuf20wqbdfUEHjSl0ofTcewNhYXs3Er3BccNWuJvSQt60LFqCVZ6m');
