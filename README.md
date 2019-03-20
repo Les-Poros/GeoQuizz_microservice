@@ -21,7 +21,16 @@ Membres du projet :
 ## Lancer les micro-services
 
 Dans chaque dossier faire : 
-* mvn clean install -DskipTests 
+* mvn clean install -DskipTests
+
+Soit : 
+* cd ./Player/
+* mvn clean install -DskipTests
+* cd ../Backoffice/
+* mvn clean install -DskipTests
+* cd ../Mobile/
+* mvn clean install -DskipTests
+* cd ..
 
 Puis revenir dans le dossier source et faire :
 * docker-compose up --build -d
