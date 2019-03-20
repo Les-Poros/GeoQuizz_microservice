@@ -92,9 +92,7 @@ public class PartieRepresentation {
         }
         return pr.findById(idpartie).map(partie -> {
             partie.setStatus(partieUpdated.getStatus());
-            partie.setNbphotos(partieUpdated.getNbphotos());
             partie.setScore(partieUpdated.getScore());
-            partie.setJoueur(partieUpdated.getJoueur());
             pr.save(partie);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }).orElseThrow(() -> new NotFound("partie inexistant !"));

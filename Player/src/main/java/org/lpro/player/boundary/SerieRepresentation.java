@@ -92,7 +92,7 @@ public class SerieRepresentation {
 
         List<Resource<Serie>> serieResources = new ArrayList();
         series.forEach(serie -> {
-            if (serie.getPhoto().size() >= 5) {
+            if (serie.getPhoto().size() >= 10) {
                 List<Photo> shufflePhoto = new ArrayList<>(serie.getPhoto());
                 Collections.shuffle(shufflePhoto);
                 serie.setPhoto(new HashSet<>(Arrays.asList(shufflePhoto.get(0))));
