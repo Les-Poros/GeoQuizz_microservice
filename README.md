@@ -41,6 +41,9 @@ Vous aurez alors accés aux differents micro-services via les ports suivants :
 * Api BackOffice : {VotreAdresseDocker}:8083
 * Api Mobile : {VotreAdresseDocker}:8084
 
+Ainsi que leur documentation respective à l'adresse suivante
+* {VotreAdresseDocker}:{PortApiChoisit}/swagger-ui.html#/
+
 ## Ajouter la bdd prédéterminée
 
 À la fin de l'installation complète des dockers contenant les micro-services, faire: 
