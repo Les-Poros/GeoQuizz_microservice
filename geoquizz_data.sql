@@ -18,7 +18,7 @@ INSERT INTO serie (id, ville, map_lat, map_lon) VALUES ('418ee498-85f9-4680-b47e
 
 INSERT INTO photo (id, descr, latitude, longitude, url, serie_id) VALUES
 ('71545b71-f6f7-40ad-aed6-ea2f12e52e62', 'Big Ben', '51.5007', '-0.124584', 'http://res.cloudinary.com/lesporos/image/upload/71545b71-f6f7-40ad-aed6-ea2f12e52e62.jpg', '418ee498-85f9-4680-b47e-87bf7ecca3a0'),
-('3fe4b85c-6a22-4ca3-9a8e-0ac8f056c996', 'London Eye', '51.5033', '-0.119686', 'http://res.cloudinary.com/lesporos/image/upload/d3fe4b85c-6a22-4ca3-9a8e-0ac8f056c996.jpg', '418ee498-85f9-4680-b47e-87bf7ecca3a0'),
+('3fe4b85c-6a22-4ca3-9a8e-0ac8f056c996', 'London Eye', '51.5033', '-0.119686', 'http://res.cloudinary.com/lesporos/image/upload/3fe4b85c-6a22-4ca3-9a8e-0ac8f056c996.jpg', '418ee498-85f9-4680-b47e-87bf7ecca3a0'),
 ('54e73cdd-ce9c-41dd-b135-8d3cfc4a3d9b', 'Palais de Buckingham', '51.50137', '-0.1419', 'http://res.cloudinary.com/lesporos/image/upload/54e73cdd-ce9c-41dd-b135-8d3cfc4a3d9b.jpg', '418ee498-85f9-4680-b47e-87bf7ecca3a0'),
 ('5307e2b2-3d57-4441-ad97-8cd8a82f9f58', 'Tower Bridge', '51.5055', '-0.075358', 'http://res.cloudinary.com/lesporos/image/upload/5307e2b2-3d57-4441-ad97-8cd8a82f9f58.jpg', '418ee498-85f9-4680-b47e-87bf7ecca3a0'),
 ('d96cba1d-347d-4c93-8872-b0cd1e3e0735', 'Abbaye de Westminster', '51.499293', '-0.127319', 'http://res.cloudinary.com/lesporos/image/upload/d96cba1d-347d-4c93-8872-b0cd1e3e0735.jpg', '418ee498-85f9-4680-b47e-87bf7ecca3a0'),
