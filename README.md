@@ -21,7 +21,16 @@ Membres du projet :
 ## Lancer les micro-services
 
 Dans chaque dossier faire : 
-* mvn clean install -DskipTests 
+* mvn clean install -DskipTests
+
+Soit : 
+* cd ./Player/
+* mvn clean install -DskipTests
+* cd ../Backoffice/
+* mvn clean install -DskipTests
+* cd ../Mobile/
+* mvn clean install -DskipTests
+* cd ..
 
 Puis revenir dans le dossier source et faire :
 * docker-compose up --build -d
@@ -31,6 +40,9 @@ Vous aurez alors accés aux differents micro-services via les ports suivants :
 * Api Player : {VotreAdresseDocker}:8082
 * Api BackOffice : {VotreAdresseDocker}:8083
 * Api Mobile : {VotreAdresseDocker}:8084
+
+Ainsi que leur documentation respective à l'adresse suivante
+* {VotreAdresseDocker}:{PortApiChoisit}/swagger-ui.html#/
 
 ## Ajouter la bdd prédéterminée
 
