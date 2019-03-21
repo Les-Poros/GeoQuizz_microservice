@@ -141,6 +141,7 @@ public class SerieRepresentation {
         photo.setDescr(photoUpdated.getDescr());
         photo.setLatitude(photoUpdated.getLatitude());
         photo.setLongitude(photoUpdated.getLongitude());
+        photo.setUrl(photoUpdated.getUrl());
         Photo saved = phr.save(photo);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.setLocation(
